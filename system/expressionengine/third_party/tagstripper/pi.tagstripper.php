@@ -25,6 +25,10 @@ email Michael with questions, feedback, suggestions, bugs, etc.
 
 Change log
 
+v. 1.0.5 (2014 FEB 17)
+
+Remove line breaks option added.
+
 v. 1.0.4 (2014 FEB 17)
 
 Fixed broken non breaking space removal. Doh.
@@ -59,7 +63,8 @@ $plugin_info = array(
 						'pi_author_url'		=> 'http://supergeekery.com/',
 						'Documentation'	    => '<a href="'.$config['docs'].'">'.$config['docs']."</a>",
 						'pi_description'	=> 'Strips HTML tags, en masse, selectively, or by exception.',
-						'pi_usage'			=> Tagstripper::usage()
+						'pi_usage'			=> Tagstripper::usage(),
+						'Versions'			=> Tagstripper::versions()
 					);
 
 class Tagstripper {
@@ -76,6 +81,7 @@ var $return_data = "";
 		$tags = $this->EE->TMPL->fetch_param('tags');
 		$escapeChar = $this->EE->TMPL->fetch_param('escapeHTMLchars');
 		$stripNbsp = $this->EE->TMPL->fetch_param('stripNbsp');
+		$stripLineBreaks = $this->EE->TMPL->fetch_param('stripLineBreaks');
 		
 		if ($str == '')
 	    {
@@ -97,6 +103,12 @@ var $return_data = "";
 		{
 			$result = htmlspecialchars($result, ENT_QUOTES);
 		}
+
+		if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
+		{
+			$result = preg_replace('/[\r\n]+/', " ", $result);
+			$result = preg_replace('/[ \t]+/', ' ', $result);
+		}
 		
 		return $result;
 		
@@ -106,6 +118,7 @@ var $return_data = "";
 		$tags = $this->EE->TMPL->fetch_param('tags');
 		$escapeChar = $this->EE->TMPL->fetch_param('escapeHTMLchars');
 		$stripNbsp = $this->EE->TMPL->fetch_param('stripNbsp');
+		$stripLineBreaks = $this->EE->TMPL->fetch_param('stripLineBreaks');
 		
 		if ($str == '')
 	    {
@@ -127,6 +140,12 @@ var $return_data = "";
 		{
 			$result = htmlspecialchars($result, ENT_QUOTES);
 		}
+
+		if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
+		{
+			$result = preg_replace('/[\r\n]+/', " ", $result);
+			$result = preg_replace('/[ \t]+/', ' ', $result);
+		}
 		
 		return $result;
 	}
@@ -135,6 +154,7 @@ var $return_data = "";
 	{
 		$escapeChar = $this->EE->TMPL->fetch_param('escapeHTMLchars');
 		$stripNbsp = $this->EE->TMPL->fetch_param('stripNbsp');
+		$stripLineBreaks = $this->EE->TMPL->fetch_param('stripLineBreaks');
 
 		if ($str == '')
 	    {
@@ -151,6 +171,12 @@ var $return_data = "";
 		if ($stripNbsp == 'yes' || $stripNbsp == 'true')
 		{
 			$result = preg_replace('(&nbsp;)', '', $result);
+		}
+
+		if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
+		{
+			$result = preg_replace('/[\r\n]+/', " ", $result);
+			$result = preg_replace('/[ \t]+/', ' ', $result);
 		}
 
 		if ($escapeChar == 'true' || $escapeChar == 'yes')
@@ -220,8 +246,10 @@ var $return_data = "";
 		
 		<h1>Example of exp:tagstripper:tagsToStrip tags='img|a'</h1>
 		A photo of my <strong>computer</strong>.
+
+
 		
-	Stripping the non-breaking space character.
+	## Stripping the non-breaking space character.
 
 		BEFORE EXAMPLE:
 
@@ -234,7 +262,8 @@ var $return_data = "";
 		<p>I don't need no stinking non-breaking space character.</p>
 
 
-	HTML Special Character encoding.
+
+	## HTML Special Character encoding.
 	
 	Since this add-on is sometimes used to generate meta data, a lone quote mark, ' or ", can cause errors. You can use the 'escapeHTMLchars' by setting its value to 'true' (as of version 1.0.2 of SuperGeekery Tagstripper) to encode HTML special character to their HTML entities. The ampersand, double quote, single quote, less than, and greater than characters become &amp; , &quot; , &#039; , &lt; , and &gt; . 
 		
@@ -247,14 +276,60 @@ var $return_data = "";
 		AFTER EXAMPLE:
 		
 		A foot is 12&quot; long.
+
+	
+
+	## Removing the non-breaking space special characters from HTML
+
+		To any of the ExpressionEngine tags above you may also add the ‘stripNbsp’ parameter set to ‘true’ or ‘yes’ to have the non-breaking space HTML entity removed from your text.
+
+		Stripping the non-breaking space character.
+
+		BEFORE EXAMPLE:
+
+			{exp:tagstripper:stripAllTags stripNbsp='true'}
+				<p>&nbsp;I don't need no stinking non-breaking space character.</p>
+			{/exp:tagstripper:stripAllTags}
+
+		AFTER EXAMPLE:
+
+			I don't need no stinking non-breaking space character.
+			Removing line breaks from text
+
+			To any of the ExpressionEngine tags above you may also add the ‘stringLineBreaks’ parameter set to ‘true’ or ‘yes’ to have the line breaks removed. This is helpful if you stripped all the paragraph tags but also wanted to remove the line breaks that might still be in the text. This is useful for automated meta data generation.
+
+		BEFORE EXAMPLE
+
+			{exp:tagstripper:stripAllTags stripLineBreaks='true'}
+				<p>I don't need no stinking paragraph tags removed which leave left over line breaks.</p>
+				<p>Line breaks can make for messy meta data.</p>
+				<h2>I say, <em>Out!</em></h2> 	
+			{/exp:tagstripper:stripAllTags}
+			
+		AFTER EXAMPLE:
+
+			I don't need no stinking paragraph tags removed which leave left over line breaks. Line breaks can make for messy meta data. I say, Out!
 		
+	<?php
+	$buffer = ob_get_contents();
+	
+	ob_end_clean(); 
+
+	return $buffer;
+	}
+
+	function versions()
+	{
+	ob_start(); 
+	?>
 		Version notes:
 		
-		1.0.3 - supports removal of non-breaking space character
-		1.0.2 - support for NSM Addon Updater; 
-				added HTML Special Character encoding
-		1.0.1 - cleaned up some code comments
-		1.0 - initial release
+		<p>1.0.5 - Added option to remove line breaks</p>
+		<p>1.0.4 - FIXED removal of non-breaking space character</p>
+		<p>1.0.3 - Supports removal of non-breaking space character</p>
+		<p>1.0.2 - Support for NSM Addon Updater; Added HTML Special Character encoding</p>
+		<p>1.0.1 - Cleaned up some code comments</p>
+		<p>1.0 - Initial release</p>
 		
 	<?php
 	$buffer = ob_get_contents();

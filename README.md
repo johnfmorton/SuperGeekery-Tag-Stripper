@@ -97,9 +97,9 @@ A foot is 12&quot; long.
 ```
 
 
-#Removing the non-breaking space special characters from HTML
+##Removing the non-breaking space special characters from HTML
 
-To any of the ExpressionEngine tags above, you may also add the 'stripNbsp' parameter set to 'true' or 'yes' to have the non-breaking space HTML entity removed from your text.
+To any of the ExpressionEngine tags above you may also add the 'stripNbsp' parameter set to 'true' or 'yes' to have the non-breaking space HTML entity removed from your text.
 
 
 Stripping the non-breaking space character.
@@ -121,8 +121,34 @@ Stripping the non-breaking space character.
 I don't need no stinking non-breaking space character.
 ```
 
+
+##Removing line breaks from text
+
+To any of the ExpressionEngine tags above you may also add the 'stringLineBreaks' parameter set to 'true' or 'yes' to have the line breaks removed. This is helpful if you stripped all the paragraph tags but also wanted to remove the line breaks that might still be in the text. This is useful for automated meta data generation.
+
+###BEFORE EXAMPLE
+
+```
+{exp:tagstripper:stripAllTags stripLineBreaks='true'}
+	<p>I don't need no stinking paragraph tags removed which leave left over line breaks.</p>
+	<p>Line breaks can make for messy meta data.</p>
+	<h2>I say, <em>Out!</em></h2> 	
+{/exp:tagstripper:stripAllTags}
+```
+
+
+###AFTER EXAMPLE:
+
+
+```
+I don't need no stinking paragraph tags removed which leave left over line breaks. Line breaks can make for messy meta data. I say, Out!
+```
+
+
+
 Version notes:
 
+1.0.5 - added support to remove line breaks
 1.0.4 - fixed non-breaking space function
 		added better documetion for non-breaking space
 1.0.3 - supports removal of non-breaking space character
