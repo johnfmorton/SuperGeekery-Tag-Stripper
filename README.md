@@ -6,18 +6,26 @@ Removes all HTML tags. Ignores all arguments passed in.
 	
 ###BEFORE EXAMPLE (wrapped in the appropriate EE tag):
 		
-`{exp:tagstripper:stripAllTags}
+
+```
+{exp:tagstripper:stripAllTags}
 <h1>Example of exp:tagstripper:stripAllTags</h1>
 <h2>This is an h2 tag.</h2>
 <a href="http://www.flickr.com/photos/morton/3969410575/" title="My Monitors Rock by John Morton, on Flickr">A photo of my <strong>computer</strong>.</a>
 <img src="http://farm3.static.flickr.com/2609/3969410575_0987891ac7_t.jpg" width="100" height="75" alt="My Monitors Rock" />
-{/exp:tagstripper:stripAllTags}`
+{/exp:tagstripper:stripAllTags}
+```
+
 	
 ###AFTER EXAMPLE:
 	
-`Example of exp:tagstripper:stripAllTags
+
+```
+Example of exp:tagstripper:stripAllTags
 This is an h2 tag.
-A photo of my computer.`
+A photo of my computer.
+```
+
 	
 	
 ## 2. **exp:tagstripper:tagsToSave tags='h1|span|img'** 
@@ -26,18 +34,20 @@ Removes all HTML tags except those tags passed in through a 'tags' parameter. Mu
 	
 ###BEFORE EXAMPLE (wrapped in the appropriate EE tag):
 
-`{exp:tagstripper:tagsToSave tags="h1"}
+```
+{exp:tagstripper:tagsToSave tags="h1"}
 <h1>Example of exp:tagstripper:tagsToSave tags="h1"</h1>
 <a href="http://www.flickr.com/photos/morton/3969410575/" title="My Monitors Rock by John Morton, on Flickr">A photo of my <strong>computer</strong>.</a>
 <img src="http://farm3.static.flickr.com/2609/3969410575_0987891ac7_t.jpg" width="100" height="75" alt="My Monitors Rock" />
-{/exp:tagstripper:tagsToSave}`
-
+{/exp:tagstripper:tagsToSave}
+```
 
 ###AFTER EXAMPLE:
 
-`<h1>Example of exp:tagstripper:tagsToSave tags="h1"</h1>
-A photo of my computer.`
-
+```
+<h1>Example of exp:tagstripper:tagsToSave tags="h1"</h1>
+A photo of my computer.
+```
 
 ## 3. **exp:tagstripper:tagsToStrip tags='img|a'**
 
@@ -45,29 +55,33 @@ Removes specified HTML tags passed in through a 'tags' parameter. Multiple tags 
 
 ###BEFORE EXAMPLE (wrapped in the appropriate EE tag):
 
-`{exp:tagstripper:tagsToStrip tags='img|a'}
+```
+{exp:tagstripper:tagsToStrip tags='img|a'}
 <h1>Example of exp:tagstripper:tagsToStrip tags='img|a'</h1>
 <a href="http://www.flickr.com/photos/morton/3969410575/" title="My Monitors Rock by John Morton, on Flickr">A photo of my <strong>computer</strong>.</a>
 <img src="http://farm3.static.flickr.com/2609/3969410575_0987891ac7_t.jpg" width="100" height="75" alt="My Monitors Rock" />
-{/exp:tagstripper:tagsToStrip}`
-
+{/exp:tagstripper:tagsToStrip}
+```
 ###AFTER EXAMPLE:
 
-`<h1>Example of exp:tagstripper:tagsToStrip tags='img|a'</h1>
-A photo of my <strong>computer</strong>.`
-
+```
+<h1>Example of exp:tagstripper:tagsToStrip tags='img|a'</h1>
+A photo of my <strong>computer</strong>.
+```
 Stripping the non-breaking space character.
 
 ###BEFORE EXAMPLE:
 
-`{exp:tagstripper:stripAllTags stringNbsp='true'}
+```
+{exp:tagstripper:stripAllTags stringNbsp='true'}
 		<p>&nbsp;I don't need no stinking non-breaking space character.</p>
-{/exp:tagstripper:stripAllTags}`
-
+{/exp:tagstripper:stripAllTags}
+```
 ###AFTER EXAMPLE: 
 
-`<p>I don't need no stinking non-breaking space character.</p>`
-
+```
+<p>I don't need no stinking non-breaking space character.</p>
+```
 
 ##HTML Special Character encoding.
 
@@ -75,14 +89,16 @@ Since this add-on is sometimes used to generate meta data, a lone quote mark, ' 
 
 ###BEFORE EXAMPLE:
 
-`{exp:tagstripper:stripAllTags escapeHTMLchars='true'}
+```
+{exp:tagstripper:stripAllTags escapeHTMLchars='true'}
 	<h1>A foot is 12" long.</h1>
-{/exp:tagstripper:stripAllTags}`
-
+{/exp:tagstripper:stripAllTags}
+```
 ###AFTER EXAMPLE:
 
-`A foot is 12&quot; long.`
-
+```
+A foot is 12&quot; long.
+```
 ##Removing the non-breaking space special characters from HTML
 
 To any of the ExpressionEngine tags above, you may also add the 'stripNbsp' parameter set to 'true' or 'yes' to have the non-breaking space HTML entity removed from your text.
