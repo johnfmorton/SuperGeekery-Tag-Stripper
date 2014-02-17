@@ -75,27 +75,6 @@ A photo of my <strong>computer</strong>.
 ```
 
 
-Stripping the non-breaking space character.
-
-###BEFORE EXAMPLE:
-
-
-```
-{exp:tagstripper:stripAllTags stripNbsp='true'}
-		<p>&nbsp;I don't need no stinking non-breaking space character.</p>
-{/exp:tagstripper:stripAllTags}
-```
-
-
-###AFTER EXAMPLE: 
-
-
-```
-I don't need no stinking non-breaking space character.
-```
-
-
-
 ##HTML Special Character encoding.
 
 Since this add-on is sometimes used to generate meta data, a lone quote mark, ' or ", can cause errors. You can use the 'escapeHTMLchars' by setting its value to 'true' (as of version 1.0.2 of SuperGeekery Tagstripper) to encode HTML special character to their HTML entities. The ampersand, double quote, single quote, less than, and greater than characters become &amp; , &quot; , &#039; , &lt; , and &gt; . 
@@ -118,12 +97,34 @@ A foot is 12&quot; long.
 ```
 
 
-##Removing the non-breaking space special characters from HTML
+#Removing the non-breaking space special characters from HTML
 
 To any of the ExpressionEngine tags above, you may also add the 'stripNbsp' parameter set to 'true' or 'yes' to have the non-breaking space HTML entity removed from your text.
 
+
+Stripping the non-breaking space character.
+
+###BEFORE EXAMPLE:
+
+
+```
+{exp:tagstripper:stripAllTags stripNbsp='true'}
+	<p>&nbsp;I don't need no stinking non-breaking space character.</p>
+{/exp:tagstripper:stripAllTags}
+```
+
+
+###AFTER EXAMPLE: 
+
+
+```
+I don't need no stinking non-breaking space character.
+```
+
 Version notes:
 
+1.0.4 - fixed non-breaking space function
+		added better documetion for non-breaking space
 1.0.3 - supports removal of non-breaking space character
 1.0.2 - support for NSM Addon Updater; 
 		added HTML Special Character encoding
