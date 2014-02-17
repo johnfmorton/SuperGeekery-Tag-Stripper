@@ -1,4 +1,7 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+// include config file
+include (PATH_THIRD.'tagstripper/config.php');
 
 /*
 =====================================================
@@ -21,6 +24,10 @@ email Michael with questions, feedback, suggestions, bugs, etc.
 =====================================================
 
 Change log
+
+v. 1.0.4 (2014 FEB 17)
+
+Fixed broken non breaking space removal. Doh.
 
 v. 1.0.3 (2012 NOV 16)
 
@@ -46,10 +53,11 @@ Initial release
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $plugin_info = array(
-						'pi_name'			=> 'SuperGeekery Tag Stripper',
-						'pi_version'		=> '1.0.3',
+						'pi_name'			=> $config['name'],
+						'pi_version'		=> $config['version'],
 						'pi_author'			=> 'John Morton',
 						'pi_author_url'		=> 'http://supergeekery.com/',
+						'Documentation'	    => '<a href="'.$config['docs'].'">'.$config['docs']."</a>",
 						'pi_description'	=> 'Strips HTML tags, en masse, selectively, or by exception.',
 						'pi_usage'			=> Tagstripper::usage()
 					);
@@ -82,7 +90,7 @@ var $return_data = "";
 		
 		if ($stripNbsp == 'yes' || $stripNbsp == 'true')
 		{
-			$result = preg_replace('&nbsp;', '', $result);
+			$result = preg_replace('(&nbsp;)', '', $result);
 		}
 
 		if ($escapeChar == 'true' || $escapeChar == 'yes')
@@ -106,7 +114,7 @@ var $return_data = "";
 
 		if ($stripNbsp == 'yes' || $stripNbsp == 'true')
 		{
-			$str = preg_replace('{&nbsp;}', '', $str);
+			$str = preg_replace('(&nbsp;)', '', $str);
 		}
 
 		$patterns = ' {</?\\w+(?<!'.$tags.')((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/?>}';
@@ -115,8 +123,6 @@ var $return_data = "";
 		
 		$result = preg_replace($patterns, $replacements, $str);
 		
-		
-
 		if ($escapeChar == 'true' || $escapeChar == 'yes')
 		{
 			$result = htmlspecialchars($result, ENT_QUOTES);
@@ -144,7 +150,7 @@ var $return_data = "";
 		
 		if ($stripNbsp == 'yes' || $stripNbsp == 'true')
 		{
-			$result = preg_replace('&nbsp;', '', $result);
+			$result = preg_replace('(&nbsp;)', '', $result);
 		}
 
 		if ($escapeChar == 'true' || $escapeChar == 'yes')
