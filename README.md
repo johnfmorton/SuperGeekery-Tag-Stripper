@@ -73,14 +73,12 @@ Stripping the non-breaking space character.
 ###BEFORE EXAMPLE:
 
 ```
-{exp:tagstripper:stripAllTags stringNbsp='true'}
 		<p>&nbsp;I don't need no stinking non-breaking space character.</p>
 {/exp:tagstripper:stripAllTags}
 ```
 ###AFTER EXAMPLE: 
 
 ```
-<p>I don't need no stinking non-breaking space character.</p>
 ```
 
 ##HTML Special Character encoding.
