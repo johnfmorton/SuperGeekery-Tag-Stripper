@@ -9,7 +9,7 @@ include (PATH_THIRD.'tagstripper/config.php');
 SG Tag Stripper
 a plug-in for ExpressionEngine 2
 by John Morton
-v1.03
+v1.06
 
 inspired by (and pretty much directly ripped from) the Javascript "ify" version
 by Dustin Diaz
@@ -24,6 +24,10 @@ email Michael with questions, feedback, suggestions, bugs, etc.
 =====================================================
 
 Change log
+
+v. 1.0.6 (2015 FEB 9)
+
+Updated functions to "public static function" to prevent PHP warnings.
 
 v. 1.0.5 (2014 FEB 17)
 
@@ -190,7 +194,7 @@ var $return_data = "";
 	/** ----------------------------------------
 	/**  Plugin Usage
 	/** ----------------------------------------*/
-	function usage()
+	public static function usage()
 	{
 	ob_start(); 
 	?>
@@ -318,7 +322,7 @@ var $return_data = "";
 	return $buffer;
 	}
 
-	function versions()
+	public static function versions()
 	{
 	ob_start(); 
 	?>
