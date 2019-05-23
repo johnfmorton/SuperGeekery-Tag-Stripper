@@ -1,6 +1,6 @@
 <?php 
 
-namespace Tagstripper;
+namespace JohnMorton\Tagstripper;
 
 if (!defined('BASEPATH')) { 
     exit ('No direct script access allowed.');

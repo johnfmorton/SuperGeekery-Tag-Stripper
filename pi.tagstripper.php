@@ -1,9 +1,11 @@
 <?php
 
+namespace JohnMorton\Tagstripper;
+
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once (PATH_THIRD.'tagstripper/constants.php');
-use Tagstripper\Constants;
+use JohnMorton\Tagstripper\Constants;
 
 /*
 =====================================================

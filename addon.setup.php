@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) { exit ('No direct script access allowed.'); };
 
 require_once (PATH_THIRD . '/tagstripper/constants.php');
-use Tagstripper\Constants;
+use JohnMorton\Tagstripper\Constants;
 
 return array(
     'author' => Constants::AUTHOR,
@@ -9,5 +9,5 @@ return array(
     'name' => Constants::NAME,
     'description' => Constants::DESCRIPTION,
     'version' => Constants::VERSION,
-    'namespace' => 'Tagstripper'
+    'namespace' => 'JohnMorton\Tagstripper'
 );
