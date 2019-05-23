@@ -1,5 +1,11 @@
 # SuperGeekery Tag Stripper
 
+Inspired by (and pretty much directly ripped from) the Javascript "ify" version by Dustin Diaz <http://www.dustindiaz.com/basement/ify.html>.
+
+Also uses John Gruber's URL-matching regex <http://daringfireball.net/2009/11/liberal_regex_for_matching_urls>
+
+Email Michael with questions, feedback, suggestions, bugs, etc. michael@michaelrog.com
+
 ## Installation
 
 1. From your project's addon directory (e.g., `system/user/addons/`), clone the project as `tagstripper`. Note that the plugin directory must be named "tagstripper" to work.
