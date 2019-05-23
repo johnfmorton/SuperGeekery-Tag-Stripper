@@ -8,26 +8,25 @@ require_once (PATH_THIRD.'tagstripper/constants.php');
 use JohnMorton\Tagstripper\Constants;
 
 class Tagstripper {
+	public $return_data = "";
 
-var $return_data = "";
-
-  function Tagstripper($str = '')
+  public function Tagstripper($str = '')
   {
-	// fetch the data between Stripper tags
-	$this->EE =& get_instance();
+		// fetch the data between Stripper tags
+		$this->EE =& get_instance();
   }
 	
-	function tagsToStrip($str = '') {
+	public function tagsToStrip($str = '') {
 		$tags = $this->EE->TMPL->fetch_param('tags');
 		$escapeChar = $this->EE->TMPL->fetch_param('escapeHTMLchars');
 		$stripNbsp = $this->EE->TMPL->fetch_param('stripNbsp');
 		$stripLineBreaks = $this->EE->TMPL->fetch_param('stripLineBreaks');
-		
+
 		if ($str == '')
-	    {
-	      $str = $this->EE->TMPL->tagdata;
-	    }
-	
+		{
+			$str = $this->EE->TMPL->tagdata;
+		}
+
 		$patterns = ' {</?(?:'.$tags.')+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/?>}';
 
 $replacements = '';
@@ -51,10 +50,9 @@ $result = preg_replace('/[ \t]+/', ' ', $result);
 }
 
 return $result;
-
 }
 
-function tagsToSave($str = '') {
+public function tagsToSave($str = '') {
 $tags = $this->EE->TMPL->fetch_param('tags');
 $escapeChar = $this->EE->TMPL->fetch_param('escapeHTMLchars');
 $stripNbsp = $this->EE->TMPL->fetch_param('stripNbsp');
@@ -90,7 +88,7 @@ $result = preg_replace('/[ \t]+/', ' ', $result);
 return $result;
 }
 
-function stripAllTags($str = '')
+public function stripAllTags($str = '')
 {
 $escapeChar = $this->EE->TMPL->fetch_param('escapeHTMLchars');
 $stripNbsp = $this->EE->TMPL->fetch_param('stripNbsp');
@@ -101,175 +99,174 @@ if ($str == '')
 $str = $this->EE->TMPL->tagdata;
 }
 
-/*$patterns = ' /<[^<]+?>/i';*/
-	$patterns = '{</?\\w+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/?>}';
+$patterns = '{</?\\w+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/?>}';
 
-	$replacements = '';
+$replacements = '';
 
-	$result = preg_replace($patterns, $replacements, $str);
+$result = preg_replace($patterns, $replacements, $str);
 
-	if ($stripNbsp == 'yes' || $stripNbsp == 'true')
-	{
-	$result = preg_replace('(&nbsp;)', '', $result);
-	}
+if ($stripNbsp == 'yes' || $stripNbsp == 'true')
+{
+$result = preg_replace('(&nbsp;)', '', $result);
+}
 
-	if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
-	{
-	$result = preg_replace('/[\r\n]+/', " ", $result);
-	$result = preg_replace('/[ \t]+/', ' ', $result);
-	}
+if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
+{
+$result = preg_replace('/[\r\n]+/', " ", $result);
+$result = preg_replace('/[ \t]+/', ' ', $result);
+}
 
-	if ($escapeChar == 'true' || $escapeChar == 'yes')
-	{
-	$result = htmlspecialchars($result, ENT_QUOTES);
-	}
+if ($escapeChar == 'true' || $escapeChar == 'yes')
+{
+$result = htmlspecialchars($result, ENT_QUOTES);
+}
 
-	return $result;
-	}
+return $result;
+}
 
-	/** ----------------------------------------
-	/** Plugin Usage
-	/** ----------------------------------------*/
-	public static function usage()
-	{
-	ob_start();
-	?>
+/** ----------------------------------------
+** Plugin Usage
+** ----------------------------------------*/
+public static function usage()
+{
+ob_start();
+?>
 
-	There are 3 primary ways to use The SuperGeekery Tag Stripper.
+There are 3 primary ways to use The SuperGeekery Tag Stripper.
 
-	1. exp:tagstripper:stripAllTags - Removes all HTML tags. Ignores all arguments passed in.
+1. exp:tagstripper:stripAllTags - Removes all HTML tags. Ignores all arguments passed in.
 
-	BEFORE EXAMPLE (wrapped in the appropriate EE tag):
+BEFORE EXAMPLE (wrapped in the appropriate EE tag):
 
-	{exp:tagstripper:stripAllTags}
-	<h1>Example of exp:tagstripper:stripAllTags</h1>
-	<h2>This is an h2 tag.</h2>
-	<a href="http://www.flickr.com/photos/morton/3969410575/" title="My Monitors Rock by John Morton, on Flickr">A photo
-		of my <strong>computer</strong>.</a>
-	<img src="http://farm3.static.flickr.com/2609/3969410575_0987891ac7_t.jpg" width="100" height="75"
-		alt="My Monitors Rock" />
-	{/exp:tagstripper:stripAllTags}
+{exp:tagstripper:stripAllTags}
+<h1>Example of exp:tagstripper:stripAllTags</h1>
+<h2>This is an h2 tag.</h2>
+<a href="http://www.flickr.com/photos/morton/3969410575/" title="My Monitors Rock by John Morton, on Flickr">A photo
+	of my <strong>computer</strong>.</a>
+<img src="http://farm3.static.flickr.com/2609/3969410575_0987891ac7_t.jpg" width="100" height="75"
+	alt="My Monitors Rock" />
+{/exp:tagstripper:stripAllTags}
 
-	AFTER EXAMPLE:
+AFTER EXAMPLE:
 
-	Example of exp:tagstripper:stripAllTags
-	This is an h2 tag.
-	A photo of my computer.
-
-
-	2. exp:tagstripper:tagsToSave tags='h1|span|img' - Removes all HTML tags except those tags passed in through a 'tags'
-	parameter. Multiple tags are passed in separated by the pipe | character, sometimes referred to as the OR operator.
-	The 'tags' parameter is optional, so it in essence operates like exp:tagstripper:stripAllTags. The 'tags' parameter
-	can also take a regexp range, for example, passing in 'h[1-3]' would strip out h1, h2, h3, but not touch h4, h5, etc.
-
-	BEFORE EXAMPLE (wrapped in the appropriate EE tag):
-
-	{exp:tagstripper:tagsToSave tags="h1"}
-	<h1>Example of exp:tagstripper:tagsToSave tags="h1"</h1>
-	<a href="http://www.flickr.com/photos/morton/3969410575/" title="My Monitors Rock by John Morton, on Flickr">A photo
-		of my <strong>computer</strong>.</a>
-	<img src="http://farm3.static.flickr.com/2609/3969410575_0987891ac7_t.jpg" width="100" height="75"
-		alt="My Monitors Rock" />
-	{/exp:tagstripper:tagsToSave}
+Example of exp:tagstripper:stripAllTags
+This is an h2 tag.
+A photo of my computer.
 
 
-	AFTER EXAMPLE:
+2. exp:tagstripper:tagsToSave tags='h1|span|img' - Removes all HTML tags except those tags passed in through a 'tags'
+parameter. Multiple tags are passed in separated by the pipe | character, sometimes referred to as the OR operator.
+The 'tags' parameter is optional, so it in essence operates like exp:tagstripper:stripAllTags. The 'tags' parameter
+can also take a regexp range, for example, passing in 'h[1-3]' would strip out h1, h2, h3, but not touch h4, h5, etc.
 
-	<h1>Example of exp:tagstripper:tagsToSave tags="h1"</h1>
-	A photo of my computer.
+BEFORE EXAMPLE (wrapped in the appropriate EE tag):
 
-
-	3. exp:tagstripper:tagsToStrip tags='img|a'- Removes specified HTML tags passed in through a 'tags' parameter.
-	Multiple tags are passed in separated by the pipe | character, sometimes referred to as the OR operator. The 'tags'
-	parameter is optional, but if you're not going to strip out any tags, you probably should just not use this plug-in.
-	:)
-
-	BEFORE EXAMPLE (wrapped in the appropriate EE tag):
-
-	{exp:tagstripper:tagsToStrip tags='img|a'}
-	<h1>Example of exp:tagstripper:tagsToStrip tags='img|a'</h1>
-	<a href="http://www.flickr.com/photos/morton/3969410575/" title="My Monitors Rock by John Morton, on Flickr">A photo
-		of my <strong>computer</strong>.</a>
-	<img src="http://farm3.static.flickr.com/2609/3969410575_0987891ac7_t.jpg" width="100" height="75"
-		alt="My Monitors Rock" />
-	{/exp:tagstripper:tagsToStrip}
-
-	AFTER EXAMPLE:
-
-	<h1>Example of exp:tagstripper:tagsToStrip tags='img|a'</h1>
-	A photo of my <strong>computer</strong>.
+{exp:tagstripper:tagsToSave tags="h1"}
+<h1>Example of exp:tagstripper:tagsToSave tags="h1"</h1>
+<a href="http://www.flickr.com/photos/morton/3969410575/" title="My Monitors Rock by John Morton, on Flickr">A photo
+	of my <strong>computer</strong>.</a>
+<img src="http://farm3.static.flickr.com/2609/3969410575_0987891ac7_t.jpg" width="100" height="75"
+	alt="My Monitors Rock" />
+{/exp:tagstripper:tagsToSave}
 
 
+AFTER EXAMPLE:
 
-	## Stripping the non-breaking space character.
+<h1>Example of exp:tagstripper:tagsToSave tags="h1"</h1>
+A photo of my computer.
 
-	BEFORE EXAMPLE:
 
-	{exp:tagstripper:stripAllTags stringNbsp='true'}
-	<p>&nbsp;I don't need no stinking non-breaking space character.</p>
-	{/exp:tagstripper:stripAllTags}
+3. exp:tagstripper:tagsToStrip tags='img|a'- Removes specified HTML tags passed in through a 'tags' parameter.
+Multiple tags are passed in separated by the pipe | character, sometimes referred to as the OR operator. The 'tags'
+parameter is optional, but if you're not going to strip out any tags, you probably should just not use this plug-in.
+:)
 
-	AFTER EXAMPLE:
+BEFORE EXAMPLE (wrapped in the appropriate EE tag):
 
-	<p>I don't need no stinking non-breaking space character.</p>
+{exp:tagstripper:tagsToStrip tags='img|a'}
+<h1>Example of exp:tagstripper:tagsToStrip tags='img|a'</h1>
+<a href="http://www.flickr.com/photos/morton/3969410575/" title="My Monitors Rock by John Morton, on Flickr">A photo
+	of my <strong>computer</strong>.</a>
+<img src="http://farm3.static.flickr.com/2609/3969410575_0987891ac7_t.jpg" width="100" height="75"
+	alt="My Monitors Rock" />
+{/exp:tagstripper:tagsToStrip}
+
+AFTER EXAMPLE:
+
+<h1>Example of exp:tagstripper:tagsToStrip tags='img|a'</h1>
+A photo of my <strong>computer</strong>.
 
 
 
-	## HTML Special Character encoding.
+## Stripping the non-breaking space character.
 
-	Since this add-on is sometimes used to generate meta data, a lone quote mark, ' or ", can cause errors. You can use
-	the 'escapeHTMLchars' by setting its value to 'true' (as of version 1.0.2 of SuperGeekery Tagstripper) to encode HTML
-	special character to their HTML entities. The ampersand, double quote, single quote, less than, and greater than
-	characters become &amp; , &quot; , &#039; , &lt; , and &gt; .
+BEFORE EXAMPLE:
 
-	BEFORE EXAMPLE:
+{exp:tagstripper:stripAllTags stringNbsp='true'}
+<p>&nbsp;I don't need no stinking non-breaking space character.</p>
+{/exp:tagstripper:stripAllTags}
 
-	{exp:tagstripper:stripAllTags escapeHTMLchars='true'}
-	<h1>A foot is 12" long.</h1>
-	{/exp:tagstripper:stripAllTags}
+AFTER EXAMPLE:
 
-	AFTER EXAMPLE:
-
-	A foot is 12&quot; long.
+<p>I don't need no stinking non-breaking space character.</p>
 
 
 
-	## Removing the non-breaking space special characters from HTML
+## HTML Special Character encoding.
 
-	To any of the ExpressionEngine tags above you may also add the ‘stripNbsp’ parameter set to ‘true’ or ‘yes’ to have
-	the non-breaking space HTML entity removed from your text.
+Since this add-on is sometimes used to generate meta data, a lone quote mark, ' or ", can cause errors. You can use
+the 'escapeHTMLchars' by setting its value to 'true' (as of version 1.0.2 of SuperGeekery Tagstripper) to encode HTML
+special character to their HTML entities. The ampersand, double quote, single quote, less than, and greater than
+characters become &amp; , &quot; , &#039; , &lt; , and &gt; .
 
-	Stripping the non-breaking space character.
+BEFORE EXAMPLE:
 
-	BEFORE EXAMPLE:
+{exp:tagstripper:stripAllTags escapeHTMLchars='true'}
+<h1>A foot is 12" long.</h1>
+{/exp:tagstripper:stripAllTags}
 
-	{exp:tagstripper:stripAllTags stripNbsp='true'}
-	<p>&nbsp;I don't need no stinking non-breaking space character.</p>
-	{/exp:tagstripper:stripAllTags}
+AFTER EXAMPLE:
 
-	AFTER EXAMPLE:
+A foot is 12&quot; long.
 
-	I don't need no stinking non-breaking space character.
-	Removing line breaks from text
 
-	To any of the ExpressionEngine tags above you may also add the ‘stringLineBreaks’ parameter set to ‘true’ or ‘yes’ to
-	have the line breaks removed. This is helpful if you stripped all the paragraph tags but also wanted to remove the
-	line breaks that might still be in the text. This is useful for automated meta data generation.
 
-	BEFORE EXAMPLE
+## Removing the non-breaking space special characters from HTML
 
-	{exp:tagstripper:stripAllTags stripLineBreaks='true'}
-	<p>I don't need no stinking paragraph tags removed which leave left over line breaks.</p>
-	<p>Line breaks can make for messy meta data.</p>
-	<h2>I say, <em>Out!</em></h2>
-	{/exp:tagstripper:stripAllTags}
+To any of the ExpressionEngine tags above you may also add the ‘stripNbsp’ parameter set to ‘true’ or ‘yes’ to have
+the non-breaking space HTML entity removed from your text.
 
-	AFTER EXAMPLE:
+Stripping the non-breaking space character.
 
-	I don't need no stinking paragraph tags removed which leave left over line breaks. Line breaks can make for messy meta
-	data. I say, Out!
+BEFORE EXAMPLE:
 
-	<?php
+{exp:tagstripper:stripAllTags stripNbsp='true'}
+<p>&nbsp;I don't need no stinking non-breaking space character.</p>
+{/exp:tagstripper:stripAllTags}
+
+AFTER EXAMPLE:
+
+I don't need no stinking non-breaking space character.
+Removing line breaks from text
+
+To any of the ExpressionEngine tags above you may also add the ‘stringLineBreaks’ parameter set to ‘true’ or ‘yes’ to
+have the line breaks removed. This is helpful if you stripped all the paragraph tags but also wanted to remove the
+line breaks that might still be in the text. This is useful for automated meta data generation.
+
+BEFORE EXAMPLE
+
+{exp:tagstripper:stripAllTags stripLineBreaks='true'}
+<p>I don't need no stinking paragraph tags removed which leave left over line breaks.</p>
+<p>Line breaks can make for messy meta data.</p>
+<h2>I say, <em>Out!</em></h2>
+{/exp:tagstripper:stripAllTags}
+
+AFTER EXAMPLE:
+
+I don't need no stinking paragraph tags removed which leave left over line breaks. Line breaks can make for messy meta
+data. I say, Out!
+
+<?php
 	$buffer = ob_get_contents();
 	
 	ob_end_clean(); 
@@ -281,16 +278,16 @@ $str = $this->EE->TMPL->tagdata;
 	{
 	ob_start(); 
 	?>
-	Version notes:
+Version notes:
 
-	<p>1.0.5 - Added option to remove line breaks</p>
-	<p>1.0.4 - FIXED removal of non-breaking space character</p>
-	<p>1.0.3 - Supports removal of non-breaking space character</p>
-	<p>1.0.2 - Support for NSM Addon Updater; Added HTML Special Character encoding</p>
-	<p>1.0.1 - Cleaned up some code comments</p>
-	<p>1.0 - Initial release</p>
+<p>1.0.5 - Added option to remove line breaks</p>
+<p>1.0.4 - FIXED removal of non-breaking space character</p>
+<p>1.0.3 - Supports removal of non-breaking space character</p>
+<p>1.0.2 - Support for NSM Addon Updater; Added HTML Special Character encoding</p>
+<p>1.0.1 - Cleaned up some code comments</p>
+<p>1.0 - Initial release</p>
 
-	<?php
+<?php
 	$buffer = ob_get_contents();
 	
 	ob_end_clean(); 
