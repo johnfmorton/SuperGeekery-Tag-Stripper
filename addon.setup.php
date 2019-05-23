@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) { exit ('No direct script access allowed.'); };
 
-require_once (PATH_THIRD . '/tagstripper/constants.php');
+require_once (__DIR__ . '/constants.php');
 use JohnMorton\Tagstripper\Constants;
 
 return array(
