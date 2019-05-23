@@ -1,4 +1,6 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once (PATH_THIRD.'tagstripper/constants.php');
 use Tagstripper\Constants;
@@ -57,9 +59,6 @@ Initial release
 
 
 */
-
-if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
 $plugin_info = array(
 						'pi_name'			=> Constants::NAME,
 						'pi_version'		=> Constants::VERSION,
