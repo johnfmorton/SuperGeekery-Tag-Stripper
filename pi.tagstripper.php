@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// include config file
-require_once (PATH_THIRD.'tagstripper/config.php');
+require_once (PATH_THIRD.'tagstripper/constants.php');
+use Tagstripper\Constants;
 
 /*
 =====================================================
@@ -61,12 +61,12 @@ Initial release
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $plugin_info = array(
-						'pi_name'			=> $config['name'],
-						'pi_version'		=> $config['version'],
-						'pi_author'			=> $config['author'],
-						'pi_author_url'		=> $config['author_url'],
-						'Documentation'	    => '<a href="'.$config['docs'].'">'.$config['docs']."</a>",
-						'pi_description'	=> $config['description'],
+						'pi_name'			=> Constants::NAME,
+						'pi_version'		=> Constants::VERSION,
+						'pi_author'			=> Constants::AUTHOR,
+						'pi_author_url'		=> Constants::AUTHOR_URL,
+						'Documentation'	    => '<a href="'.Constants::DOCS_URL.'">'.Constants::DOCS_URL."</a>",
+						'pi_description'	=> Constants::DESCRIPTION,
 						'pi_usage'			=> Tagstripper::usage(),
 						'Versions'			=> Tagstripper::versions()
 					);

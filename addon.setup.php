@@ -1,12 +1,13 @@
 <?php if (!defined('BASEPATH')) { exit ('No direct script access allowed.'); };
 
-require_once (PATH_THIRD . '/tagstripper/config.php');
+require_once (PATH_THIRD . '/tagstripper/constants.php');
+use Tagstripper\Constants;
 
 return array(
-    'author' => $config['author'],
-    'author_url' => $config['author_url'],
-    'name' => $config['name'],
-    'description' => $config['description'],
-    'version' => $config['version'],
+    'author' => Constants::AUTHOR,
+    'author_url' => Constants::AUTHOR_URL,
+    'name' => Constants::NAME,
+    'description' => Constants::DESCRIPTION,
+    'version' => Constants::VERSION,
     'namespace' => 'Tagstripper'
 );
