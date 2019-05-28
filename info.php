@@ -4,6 +4,17 @@ namespace JohnMorton\Tagstripper;
 
 if (!defined('BASEPATH')) { exit ('No direct script access allowed.'); }
 
+$plugin_info = array(
+    'pi_name' => Constants::NAME,
+    'pi_version' => Constants::VERSION,
+    'pi_author' => Constants::AUTHOR,
+    'pi_author_url' => Constants::AUTHOR_URL,
+    'Documentation' => '<a href="'.Constants::DOCS_URL.'">'.Constants::DOCS_URL."</a>",
+    'pi_description' => Constants::DESCRIPTION,
+    'pi_usage' => Info::usage(),
+    'Versions' => Info::versions()
+    );
+
 class Info {
     public static function usage()
     {

@@ -137,14 +137,4 @@ return Info::versions();
 }
 // END Tagstripper class
 
-$plugin_info = array(
-'pi_name' => Constants::NAME,
-'pi_version' => Constants::VERSION,
-'pi_author' => Constants::AUTHOR,
-'pi_author_url' => Constants::AUTHOR_URL,
-'Documentation' => '<a href="'.Constants::DOCS_URL.'">'.Constants::DOCS_URL."</a>",
-'pi_description' => Constants::DESCRIPTION,
-'pi_usage' => Tagstripper::usage(),
-'Versions' => Tagstripper::versions()
-);
 /* End of file pi.tagstripper.php */
