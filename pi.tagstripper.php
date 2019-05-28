@@ -11,7 +11,14 @@ require_once (__DIR__ . '/info.php');
 use JohnMorton\Tagstripper\Info;
 
 class Tagstripper {
+	private $tagdata = '';
+
 	public $return_data = "";
+
+	public function __construct()
+	{
+		$this->tagdata = ee()->TMPL->tagdata;
+	}
 
 	public function Tagstripper($str = '')
 	{
@@ -28,7 +35,7 @@ class Tagstripper {
 
 		if ($str == '')
 		{
-			$str = $this->EE->TMPL->tagdata;
+			$str = $this->tagdata;
 		}
 
 		$patterns = ' {</?(?:'.$tags.')+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/(?)>}';
@@ -64,7 +71,7 @@ class Tagstripper {
 
 		if ($str == '')
 		{
-			$str = $this->EE->TMPL->tagdata;
+			$str = $this->tagdata;
 		}
 
 		if ($stripNbsp == 'yes' || $stripNbsp == 'true')
@@ -99,7 +106,7 @@ class Tagstripper {
 
 		if ($str == '')
 		{
-			$str = $this->EE->TMPL->tagdata;
+			$str = $this->tagdata;
 		}
 
 		$patterns = '{</?\\w+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/(?)>}';
