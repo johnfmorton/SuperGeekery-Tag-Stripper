@@ -11,7 +11,7 @@ require_once (__DIR__ . '/info.php');
 use JohnMorton\Tagstripper\Info;
 
 class Tagstripper {
-	public $return_data = "";
+	public $return_data = '';
 	
 	private $instructions;
 	
