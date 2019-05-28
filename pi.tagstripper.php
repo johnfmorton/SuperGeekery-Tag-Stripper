@@ -23,12 +23,6 @@ class Tagstripper {
 		$this->instructions = $this->fetch_instructions();
 	}
 
-	public function Tagstripper($str = '')
-	{
-		// fetch the data between Stripper tags
-		$this->EE =& get_instance();
-	}
-
 	public function tagsToStrip($str = '')
 	{
 		if ($str == '')
