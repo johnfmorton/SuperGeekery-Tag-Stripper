@@ -36,7 +36,7 @@ class Tagstripper {
 			$str = $this->tagdata;
 		}
 
-		$patterns = ' {</?(?:'.$this->instructions['tags'].')+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/(?)>}';
+		$patterns = ' {</?(?:'.$this->instructions['tags'].')+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)(/?)>}';
 
 		$replacements = '';
 
@@ -54,7 +54,7 @@ class Tagstripper {
 			$str = $this->tagdata;
 		}
 
-		$patterns = ' {</?\\w+(?<!'.$this->instructions['tags'].')((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/(?)>}';
+		$patterns = ' {</?\\w+(?<!'.$this->instructions['tags'].')((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)(/?)>}';
 
 		$replacements = '';
 
@@ -72,7 +72,7 @@ class Tagstripper {
 			$str = $this->tagdata;
 		}
 
-		$patterns = '{</?\\w+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/(?)>}';
+		$patterns = '{</?\\w+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)(/?)>}';
 
 		$replacements = '';
 
