@@ -42,20 +42,7 @@ class Tagstripper {
 
 		$result = preg_replace($patterns, $replacements, $str);
 
-		if ($this->instructions['stripNbsp'] == 'yes' || $this->instructions['stripNbsp'] == 'true')
-		{
-			$result = $this->strip_nbsp($result);
-		}
-
-		if ($this->instructions['escapeChar'] == 'true' || $this->instructions['escapeChar'] == 'yes')
-		{
-			$result = $this->escape_special_chars($result);
-		}
-
-		if ($this->instructions['stripLineBreaks'] == 'true' || $this->instructions['stripLineBreaks'] == 'yes')
-		{
-			$result = $this->strip_linebreaks($result);
-		}
+		$result = $this->execute_instructions($result);
 
 		return $result;
 	}
@@ -67,26 +54,13 @@ class Tagstripper {
 			$str = $this->tagdata;
 		}
 
-		if ($this->instructions['stripNbsp'] == 'yes' || $this->instructions['stripNbsp'] == 'true')
-		{
-			$str = $this->strip_nbsp($str);
-		}
-
 		$patterns = ' {</?\\w+(?<!'.$this->instructions['tags'].')((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/(?)>}';
 
 		$replacements = '';
 
 		$result = preg_replace($patterns, $replacements, $str);
 
-		if ($this->instructions['escapeChar'] == 'true' || $this->instructions['escapeChar'] == 'yes')
-		{
-			$result = $this->escape_special_chars($result);
-		}
-
-		if ($this->instructions['stripLineBreaks'] == 'true' || $this->instructions['stripLineBreaks'] == 'yes')
-		{
-			$result = $this->strip_linebreaks($result);
-		}
+		$result = $this->execute_instructions($result);
 
 		return $result;
 	}
@@ -104,20 +78,7 @@ class Tagstripper {
 
 		$result = preg_replace($patterns, $replacements, $str);
 
-		if ($this->instructions['stripNbsp'] == 'yes' || $this->instructions['stripNbsp'] == 'true')
-		{
-			$result = $this->strip_nbsp($result);
-		}
-
-		if ($this->instructions['stripLineBreaks'] == 'true' || $this->instructions['stripLineBreaks'] == 'yes')
-		{
-			$result = $this->strip_linebreaks($result);
-		}
-
-		if ($this->instructions['escapeChar'] == 'true' || $this->instructions['escapeChar'] == 'yes')
-		{
-			$result = $this->escape_special_chars($result);
-		}
+		$result = $this->execute_instructions($result);
 
 		return $result;
 	}
@@ -135,6 +96,28 @@ class Tagstripper {
 	private function escape_special_chars($input)
 	{
 		return htmlspecialchars($input, ENT_QUOTES);
+	}
+
+	private function execute_instructions($text)
+	{
+		$result = $text;
+
+		if ($this->instructions['stripNbsp'] == 'yes' || $this->instructions['stripNbsp'] == 'true')
+		{
+			$result = $this->strip_nbsp($result);
+		}
+
+		if ($this->instructions['escapeChar'] == 'true' || $this->instructions['escapeChar'] == 'yes')
+		{
+			$result = $this->escape_special_chars($result);
+		}
+
+		if ($this->instructions['stripLineBreaks'] == 'true' || $this->instructions['stripLineBreaks'] == 'yes')
+		{
+			$result = $this->strip_linebreaks($result);
+		}
+
+		return $result;
 	}
 
 	private function fetch_instructions()
