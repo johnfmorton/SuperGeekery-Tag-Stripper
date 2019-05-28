@@ -15,6 +15,11 @@ $plugin_info = array(
     'Versions' => Info::versions()
     );
 
+/**
+ * Contains package info for ExpressionEngine <= 2 version compatibility.
+ * 
+ * ExpressionEngine >= 3 uses README.md for package info.
+ */
 class Info 
 {
     public static function usage()
