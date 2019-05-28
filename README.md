@@ -1,8 +1,8 @@
 # SuperGeekery Tag Stripper
 
-Inspired by (and pretty much directly ripped from) the Javascript "ify" version by Dustin Diaz.
+SuperGeekery Tag Stripper is an ExpressionEngine utility plugin for stripping HTML tags from text. It is compatible with ExpressionEngine versions 2-5\. Version 1 compatibility not tested.
 
-Also uses John Gruber's [URL-matching regex](http://daringfireball.net/2009/11/liberal_regex_for_matching_urls)
+Based on the Javascript "ify" version by Dustin Diaz. Also uses John Gruber's [URL-matching regex](http://daringfireball.net/2009/11/liberal_regex_for_matching_urls).
 
 ## Installation
 
@@ -138,6 +138,15 @@ I don't need no stinking paragraph tags removed which leave left over line break
 ```
 
 ## Version notes
+
+1.1.0
+
+- Updated package for ExpressionEngine 2-5 compatibility. Version 1 not tested.
+- Refactored Tagstripper class.
+
+1.0.6
+
+- Updated functions to "public static function" to prevent PHP warnings.
 
 1.0.5
 

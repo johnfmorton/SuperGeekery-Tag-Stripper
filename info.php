@@ -174,7 +174,9 @@ data. I say, Out!
 ob_start();
 ?>
 Version notes:
-
+<p>1.1.0 - Updated package for ExpressionEngine 2-5 compatibility. Version 1 not tested. Refactored Tagstripper class.
+</p>
+<p>1.0.6 - Updated functions to "public static function" to prevent PHP warnings.</p>
 <p>1.0.5 - Added option to remove line breaks</p>
 <p>1.0.4 - FIXED removal of non-breaking space character</p>
 <p>1.0.3 - Supports removal of non-breaking space character</p>
