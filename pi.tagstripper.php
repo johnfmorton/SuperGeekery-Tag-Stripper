@@ -44,7 +44,7 @@ class Tagstripper {
 
 		if ($escapeChar == 'true' || $escapeChar == 'yes')
 		{
-			$result = htmlspecialchars($result, ENT_QUOTES);
+			$result = $this->escape_special_chars($result);
 		}
 
 		if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
@@ -80,7 +80,7 @@ class Tagstripper {
 
 		if ($escapeChar == 'true' || $escapeChar == 'yes')
 		{
-			$result = htmlspecialchars($result, ENT_QUOTES);
+			$result = $this->escape_special_chars($result);
 		}
 
 		if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
@@ -120,7 +120,7 @@ class Tagstripper {
 
 		if ($escapeChar == 'true' || $escapeChar == 'yes')
 		{
-			$result = htmlspecialchars($result, ENT_QUOTES);
+			$result = $this->escape_special_chars($result);
 		}
 
 		return $result;
@@ -134,6 +134,11 @@ class Tagstripper {
 	public static function versions()
 	{
 		return Info::versions();
+	}
+
+	private function escape_special_chars($input)
+	{
+		return htmlspecialchars($input, ENT_QUOTES);
 	}
 
 	private function strip_linebreaks($broken_string)
