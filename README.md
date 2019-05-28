@@ -41,7 +41,7 @@ A photo of my computer.
 
 ### Preserve Specific Tags
 
-Removes all HTML tags except those tags passed in through a 'tags' parameter. Multiple tags are passed in separated by the pipe | character, sometimes referred to as the OR operator. The 'tags' parameter is optional, so it in essence operates like exp:tagstripper:stripAllTags. The 'tags' parameter can also take a regexp range, for example, passing in 'h[1-3]' would strip out h1, h2, h3, but not touch h4, h5, etc.
+Removes all HTML tags except those tags passed in through a `tags` parameter. Multiple tags are passed in separated by the pipe | character, sometimes referred to as the OR operator. The `tags` parameter is optional, so it in essence operates like `exp:tagstripper:stripAllTags`. The `tags` parameter can also take a regexp range, for example, passing in `h[1-3]` would strip out h1, h2, h3, but not touch h4, h5, etc.
 
 Before:
 
@@ -62,13 +62,13 @@ A photo of my computer.
 
 ### Strip Specific Tags
 
-Removes specified HTML tags passed in through a 'tags' parameter. Multiple tags are passed in separated by the pipe | character, sometimes referred to as the OR operator. The 'tags' parameter is optional, but if you're not going to strip out any tags, you probably should just not use this plug-in. :)
+Removes specified HTML tags passed in through a `tags` parameter. Multiple tags are passed in separated by the pipe (`|`) character, sometimes referred to as the OR operator. The `tags` parameter is optional, but if you're not going to strip out any tags, you probably should just not use this plug-in. :)
 
 Before:
 
 ```mustache
-{exp:tagstripper:tagsToStrip tags='img|a'}
-<h1>Example of exp:tagstripper:tagsToStrip tags='img|a'</h1>
+{exp:tagstripper:tagsToStrip tags="img|a"}
+<h1>Example of exp:tagstripper:tagsToStrip tags="img|a"</h1>
 <a href="http://www.flickr.com/photos/morton/3969410575/" title="My Monitors Rock by John Morton, on Flickr">A photo of my <strong>computer</strong>.</a>
 <img src="http://farm3.static.flickr.com/2609/3969410575_0987891ac7_t.jpg" width="100" height="75" alt="My Monitors Rock" />
 {/exp:tagstripper:tagsToStrip}
@@ -77,18 +77,18 @@ Before:
 After:
 
 ```mustache
-<h1>Example of exp:tagstripper:tagsToStrip tags='img|a'</h1>
+<h1>Example of exp:tagstripper:tagsToStrip tags="img|a"</h1>
 A photo of my <strong>computer</strong>.
 ```
 
 ### Encode HTML Special Characters
 
-Since this add-on is sometimes used to generate metadata, a lone quote mark, ' or ", can cause errors. You can use the 'escapeHTMLchars' by setting its value to 'true' (as of version 1.0.2 of SuperGeekery Tagstripper) to encode HTML special character to their HTML entities. The ampersand, double quote, single quote, less than, and greater than characters become & , " , ' , < , and > .
+Since this add-on is sometimes used to generate metadata, a lone quote mark, `'` or `"`, can cause errors. You can use the `escapeHTMLchars` by setting its value to `true` (as of version 1.0.2 of SuperGeekery Tagstripper) to encode HTML special character to their HTML entities. The ampersand, double quote, single quote, less than, and greater than characters become `&` , `"` , `'` , `<` , and `>`.
 
 Before:
 
 ```mustache
-{exp:tagstripper:stripAllTags escapeHTMLchars='true'}
+{exp:tagstripper:stripAllTags escapeHTMLchars="true"}
     <h1>A foot is 12" long.</h1>
 {/exp:tagstripper:stripAllTags}
 ```
@@ -101,14 +101,14 @@ A foot is 12" long.
 
 ### Remove HTML Non-Breaking Spaces
 
-To any of the ExpressionEngine tags above you may also add the 'stripNbsp' parameter set to 'true' or 'yes' to have the non-breaking space HTML entity removed from your text.
+To any of the ExpressionEngine tags above you may also add the `stripNbsp` parameter set to `true` or `yes` to have the non-breaking space HTML entity removed from your text.
 
 Stripping the non-breaking space character.
 
 Before:
 
 ```mustache
-{exp:tagstripper:stripAllTags stripNbsp='true'}
+{exp:tagstripper:stripAllTags stripNbsp="true"}
     <p> I don't need no stinking non-breaking space character.</p>
 {/exp:tagstripper:stripAllTags}
 ```
@@ -121,12 +121,12 @@ I don't need no stinking non-breaking space character.
 
 ### Remove Line Breaks
 
-To any of the ExpressionEngine tags above you may also add the 'stringLineBreaks' parameter set to 'true' or 'yes' to have the line breaks removed. This is helpful if you stripped all the paragraph tags but also wanted to remove the line breaks that might still be in the text. This is useful for automated meta data generation.
+To any of the ExpressionEngine tags above you may also add the `stringLineBreaks` parameter set to `true` or `yes` to have the line breaks removed. This is helpful if you stripped all the paragraph tags but also wanted to remove the line breaks that might still be in the text. This is useful for automated meta data generation.
 
 Before:
 
 ```mustache
-{exp:tagstripper:stripAllTags stripLineBreaks='true'}
+{exp:tagstripper:stripAllTags stripLineBreaks="true"}
     <p>I don't need no stinking paragraph tags removed which leave left over line breaks.</p>
     <p>Line breaks can make for messy meta data.</p>
     <h2>I say, <em>Out!</em></h2>
