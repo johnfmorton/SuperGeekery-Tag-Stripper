@@ -1,7 +1,5 @@
 <?php
 
-namespace JohnMorton\Tagstripper;
-
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once (__DIR__ . '/constants.php');
