@@ -19,7 +19,8 @@ class Tagstripper {
 		$this->EE =& get_instance();
 	}
 
-	public function tagsToStrip($str = '') {
+	public function tagsToStrip($str = '')
+	{
 		$tags = $this->EE->TMPL->fetch_param('tags');
 		$escapeChar = $this->EE->TMPL->fetch_param('escapeHTMLchars');
 		$stripNbsp = $this->EE->TMPL->fetch_param('stripNbsp');
@@ -55,7 +56,8 @@ class Tagstripper {
 		return $result;
 	}
 
-	public function tagsToSave($str = '') {
+	public function tagsToSave($str = '')
+	{
 		$tags = $this->EE->TMPL->fetch_param('tags');
 		$escapeChar = $this->EE->TMPL->fetch_param('escapeHTMLchars');
 		$stripNbsp = $this->EE->TMPL->fetch_param('stripNbsp');
@@ -127,11 +129,13 @@ class Tagstripper {
 		return $result;
 	}
 
-	public static function usage() {
+	public static function usage()
+	{
 		return Info::usage();
 	}
 
-	public static function versions() {
+	public static function versions()
+	{
 		return Info::versions();
 	}
 }

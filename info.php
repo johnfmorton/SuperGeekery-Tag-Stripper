@@ -15,7 +15,8 @@ $plugin_info = array(
     'Versions' => Info::versions()
     );
 
-class Info {
+class Info 
+{
     public static function usage()
     {
     ob_start();

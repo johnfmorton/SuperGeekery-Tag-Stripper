@@ -15,7 +15,8 @@ if (!defined('BASEPATH')) {
 * @link				http://supergeekery.com/geekblog/comments/expression_engine_2_plugin_supergeekery_tag_stripper_version_1.0
 * @license			http://creativecommons.org/licenses/by-sa/3.0/
 */
-class Constants {
+class Constants 
+{
     const NAME = 'SuperGeekery Tag Stripper';
 
     const AUTHOR = 'John Morton';
