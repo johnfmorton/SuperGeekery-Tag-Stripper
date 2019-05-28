@@ -39,7 +39,7 @@ class Tagstripper {
 
 		if ($stripNbsp == 'yes' || $stripNbsp == 'true')
 		{
-			$result = preg_replace('(&nbsp;)', '', $result);
+			$result = $this->strip_nbsp($result);
 		}
 
 		if ($escapeChar == 'true' || $escapeChar == 'yes')
@@ -69,7 +69,7 @@ class Tagstripper {
 
 		if ($stripNbsp == 'yes' || $stripNbsp == 'true')
 		{
-			$str = preg_replace('(&nbsp;)', '', $str);
+			$str = $this->strip_nbsp($str);
 		}
 
 		$patterns = ' {</?\\w+(?<!'.$tags.')((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/(?)>}';
@@ -110,7 +110,7 @@ class Tagstripper {
 
 		if ($stripNbsp == 'yes' || $stripNbsp == 'true')
 		{
-			$result = preg_replace('(&nbsp;)', '', $result);
+			$result = $this->strip_nbsp($result);
 		}
 
 		if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
@@ -142,6 +142,11 @@ class Tagstripper {
 		$clean_string = preg_replace('/[ \t]+/', ' ', $clean_string);
 
 		return $clean_string;
+	}
+
+	private function strip_nbsp($spaced_string)
+	{
+		return preg_replace('(&nbsp;)', '', $result);
 	}
 }
 // END Tagstripper class
