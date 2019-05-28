@@ -49,8 +49,7 @@ class Tagstripper {
 
 		if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
 		{
-			$result = preg_replace('/[\r\n]+/', " ", $result);
-			$result = preg_replace('/[ \t]+/', ' ', $result);
+			$result = $this->strip_linebreaks($result);
 		}
 
 		return $result;
@@ -86,8 +85,7 @@ class Tagstripper {
 
 		if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
 		{
-			$result = preg_replace('/[\r\n]+/', " ", $result);
-			$result = preg_replace('/[ \t]+/', ' ', $result);
+			$result = $this->strip_linebreaks($result);
 		}
 
 		return $result;
@@ -117,8 +115,7 @@ class Tagstripper {
 
 		if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
 		{
-			$result = preg_replace('/[\r\n]+/', " ", $result);
-			$result = preg_replace('/[ \t]+/', ' ', $result);
+			$result = $this->strip_linebreaks($result);
 		}
 
 		if ($escapeChar == 'true' || $escapeChar == 'yes')
@@ -137,6 +134,14 @@ class Tagstripper {
 	public static function versions()
 	{
 		return Info::versions();
+	}
+
+	private function strip_linebreaks($broken_string)
+	{
+		$clean_string = preg_replace('/[\r\n]+/', " ", $broken_string);
+		$clean_string = preg_replace('/[ \t]+/', ' ', $clean_string);
+
+		return $clean_string;
 	}
 }
 // END Tagstripper class
