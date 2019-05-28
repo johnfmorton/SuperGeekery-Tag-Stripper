@@ -141,17 +141,17 @@ class Tagstripper {
 		return htmlspecialchars($input, ENT_QUOTES);
 	}
 
-	private function strip_linebreaks($broken_string)
+	private function strip_linebreaks($input)
 	{
-		$clean_string = preg_replace('/[\r\n]+/', " ", $broken_string);
-		$clean_string = preg_replace('/[ \t]+/', ' ', $clean_string);
+		$output = preg_replace('/[\r\n]+/', " ", $input);
+		$output = preg_replace('/[ \t]+/', ' ', $output);
 
-		return $clean_string;
+		return $output;
 	}
 
-	private function strip_nbsp($spaced_string)
+	private function strip_nbsp($input)
 	{
-		return preg_replace('(&nbsp;)', '', $result);
+		return preg_replace('(&nbsp;)', '', $input);
 	}
 }
 // END Tagstripper class
