@@ -11,13 +11,16 @@ require_once (__DIR__ . '/info.php');
 use JohnMorton\Tagstripper\Info;
 
 class Tagstripper {
-	private $tagdata = '';
-
 	public $return_data = "";
+	
+	private $instructions;
+	
+	private $tagdata = '';
 
 	public function __construct()
 	{
 		$this->tagdata = ee()->TMPL->tagdata;
+		$this->instructions = $this->fetch_instructions();
 	}
 
 	public function Tagstripper($str = '')
@@ -28,33 +31,28 @@ class Tagstripper {
 
 	public function tagsToStrip($str = '')
 	{
-		$tags = $this->EE->TMPL->fetch_param('tags');
-		$escapeChar = $this->EE->TMPL->fetch_param('escapeHTMLchars');
-		$stripNbsp = $this->EE->TMPL->fetch_param('stripNbsp');
-		$stripLineBreaks = $this->EE->TMPL->fetch_param('stripLineBreaks');
-
 		if ($str == '')
 		{
 			$str = $this->tagdata;
 		}
 
-		$patterns = ' {</?(?:'.$tags.')+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/(?)>}';
+		$patterns = ' {</?(?:'.$this->instructions['tags'].')+((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/(?)>}';
 
 		$replacements = '';
 
 		$result = preg_replace($patterns, $replacements, $str);
 
-		if ($stripNbsp == 'yes' || $stripNbsp == 'true')
+		if ($this->instructions['stripNbsp'] == 'yes' || $this->instructions['stripNbsp'] == 'true')
 		{
 			$result = $this->strip_nbsp($result);
 		}
 
-		if ($escapeChar == 'true' || $escapeChar == 'yes')
+		if ($this->instructions['escapeChar'] == 'true' || $this->instructions['escapeChar'] == 'yes')
 		{
 			$result = $this->escape_special_chars($result);
 		}
 
-		if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
+		if ($this->instructions['stripLineBreaks'] == 'true' || $this->instructions['stripLineBreaks'] == 'yes')
 		{
 			$result = $this->strip_linebreaks($result);
 		}
@@ -64,33 +62,28 @@ class Tagstripper {
 
 	public function tagsToSave($str = '')
 	{
-		$tags = $this->EE->TMPL->fetch_param('tags');
-		$escapeChar = $this->EE->TMPL->fetch_param('escapeHTMLchars');
-		$stripNbsp = $this->EE->TMPL->fetch_param('stripNbsp');
-		$stripLineBreaks = $this->EE->TMPL->fetch_param('stripLineBreaks');
-
 		if ($str == '')
 		{
 			$str = $this->tagdata;
 		}
 
-		if ($stripNbsp == 'yes' || $stripNbsp == 'true')
+		if ($this->instructions['stripNbsp'] == 'yes' || $this->instructions['stripNbsp'] == 'true')
 		{
 			$str = $this->strip_nbsp($str);
 		}
 
-		$patterns = ' {</?\\w+(?<!'.$tags.')((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/(?)>}';
+		$patterns = ' {</?\\w+(?<!'.$this->instructions['tags'].')((\\s+\\w+(\\s*=\\s*(?:\".*?\"|\'.*?\'|[^\'\">\\s]+))?)+\\s*|\\s*)/(?)>}';
 
 		$replacements = '';
 
 		$result = preg_replace($patterns, $replacements, $str);
 
-		if ($escapeChar == 'true' || $escapeChar == 'yes')
+		if ($this->instructions['escapeChar'] == 'true' || $this->instructions['escapeChar'] == 'yes')
 		{
 			$result = $this->escape_special_chars($result);
 		}
 
-		if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
+		if ($this->instructions['stripLineBreaks'] == 'true' || $this->instructions['stripLineBreaks'] == 'yes')
 		{
 			$result = $this->strip_linebreaks($result);
 		}
@@ -100,10 +93,6 @@ class Tagstripper {
 
 	public function stripAllTags($str = '')
 	{
-		$escapeChar = $this->EE->TMPL->fetch_param('escapeHTMLchars');
-		$stripNbsp = $this->EE->TMPL->fetch_param('stripNbsp');
-		$stripLineBreaks = $this->EE->TMPL->fetch_param('stripLineBreaks');
-
 		if ($str == '')
 		{
 			$str = $this->tagdata;
@@ -115,17 +104,17 @@ class Tagstripper {
 
 		$result = preg_replace($patterns, $replacements, $str);
 
-		if ($stripNbsp == 'yes' || $stripNbsp == 'true')
+		if ($this->instructions['stripNbsp'] == 'yes' || $this->instructions['stripNbsp'] == 'true')
 		{
 			$result = $this->strip_nbsp($result);
 		}
 
-		if ($stripLineBreaks == 'true' || $stripLineBreaks == 'yes')
+		if ($this->instructions['stripLineBreaks'] == 'true' || $this->instructions['stripLineBreaks'] == 'yes')
 		{
 			$result = $this->strip_linebreaks($result);
 		}
 
-		if ($escapeChar == 'true' || $escapeChar == 'yes')
+		if ($this->instructions['escapeChar'] == 'true' || $this->instructions['escapeChar'] == 'yes')
 		{
 			$result = $this->escape_special_chars($result);
 		}
@@ -146,6 +135,18 @@ class Tagstripper {
 	private function escape_special_chars($input)
 	{
 		return htmlspecialchars($input, ENT_QUOTES);
+	}
+
+	private function fetch_instructions()
+	{
+		$instructions = array(
+			'escapeChar' => ee()->TMPL->fetch_param('escapeHTMLchars'),
+			'stripNbsp' => ee()->TMPL->fetch_param('stripNbsp'),
+			'stripLineBreaks' => ee()->TMPL->fetch_param('stripLineBreaks'),
+			'tags' => ee()->TMPL->fetch_param('tags')
+		);
+
+		return $instructions;
 	}
 
 	private function strip_linebreaks($input)
